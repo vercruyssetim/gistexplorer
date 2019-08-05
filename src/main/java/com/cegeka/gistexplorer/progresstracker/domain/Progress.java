@@ -1,5 +1,6 @@
 package com.cegeka.gistexplorer.progresstracker.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -10,6 +11,7 @@ public class Progress {
     private List<String> uncompletedItems = newArrayList();
     private List<String> uncertainItems = newArrayList();
     private int totalItems = 0;
+    private LocalDate lastUpdate;
 
     public Progress(String username) {
         this.username = username;
@@ -55,4 +57,19 @@ public class Progress {
         this.totalItems = completedItems.size() + uncompletedItems.size() + uncertainItems.size();
     }
 
+    public int getPercentage() {
+        return (int) (((double) getNumberOfCompletedItems() / (double) getTotalItems()) * 100);
+    }
+
+    public String getStyle() {
+        return "width:" + getPercentage() + "%";
+    }
+
+    public void setLastUpdate(LocalDate lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public LocalDate getLastUpdate() {
+        return lastUpdate;
+    }
 }

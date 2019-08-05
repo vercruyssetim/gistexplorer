@@ -3,6 +3,8 @@ package com.cegeka.gistexplorer.progresstracker.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GistFork {
 
@@ -12,6 +14,9 @@ public class GistFork {
     private String cloneUrl;
 
     private ForkOwner owner;
+
+    @JsonProperty("updated_at")
+    private LocalDate lastUpdate;
 
     private GistFork() {}
 
@@ -46,6 +51,10 @@ public class GistFork {
     public GistFork withOwner(ForkOwner owner) {
         this.owner = owner;
         return this;
+    }
+
+    public LocalDate getLastUpdate() {
+        return lastUpdate;
     }
 
     public static class GistForkBuilder {

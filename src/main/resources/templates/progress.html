@@ -20,7 +20,7 @@
     }
 
     .container {
-        width: 75%;
+        max-width: 580px;
         margin-left: auto;
         margin-right: auto;
         margin-top: 20px;
@@ -32,6 +32,7 @@
 
     .title {
         font-weight: 400;
+        text-align: center;
     }
 
     .fork {
@@ -47,6 +48,25 @@
     p {
         font-size: 12px;
     }
+
+    .progress {
+        height: 20px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+    }
+
+    .progress-bar {
+        float: left;
+        height: 100%;
+        font-size: 12px;
+        line-height: 20px;
+        color: #f0f0f0;
+        text-align: center;
+        background-color: #337ab7;
+    }
+
 </style>
 
 <body>
@@ -56,26 +76,20 @@
     <div th:each="progress: ${progressList}" class="fork">
         <h3 class="username">Username: <span th:text="${progress.username}"></span></h3>
 
-        <p><span th:text="${progress.numberOfCompletedItems}"></span> of <span th:text="${progress.totalItems}"></span> are completed.</p>
-
-        <h5>Completed tasks: </h5>
-        <div th:each="completedItem: ${progress.completedItems}">
-            <p th:text="${completedItem}"></p>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                 th:style="'width:' + @{${progress.percentage}} + '%'"><span th:text="${progress.percentage}"></span>
+            </div>
         </div>
-
-        <h5>
-            Not completed tasks:
-        </h5>
-        <div th:each="uncompletedItem: ${progress.uncompletedItems}">
-            <p th:text="${uncompletedItem}"></p>
-        </div>
-
-        <h5>
-            Uncertain result:
-        </h5>
-        <div th:each="uncertainItem: ${progress.uncertainItems}">
-            <p th:text="${uncertainItem}"></p>
-        </div>
+        <p>
+            <span>
+                <span th:text="${progress.numberOfCompletedItems}"></span> of <span
+                    th:text="${progress.totalItems}"></span> are completed.
+            </span>
+            <span style="float: right">
+                Last updated: <span th:text="${progress.lastUpdate}"></span>
+            </span>
+        </p>
     </div>
 </div>
 </body>
