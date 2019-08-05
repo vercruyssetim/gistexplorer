@@ -12,6 +12,7 @@ public class Progress {
     private List<String> uncertainItems = newArrayList();
     private int totalItems = 0;
     private LocalDate lastUpdate;
+    private String url;
 
     public Progress(String username) {
         this.username = username;
@@ -71,5 +72,13 @@ public class Progress {
 
     public LocalDate getLastUpdate() {
         return lastUpdate;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

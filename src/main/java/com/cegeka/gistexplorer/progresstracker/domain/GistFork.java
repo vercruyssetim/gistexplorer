@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GistFork {
 
+    @JsonProperty("html_url")
     private String url;
 
     @JsonProperty("git_pull_url")

@@ -16,6 +16,7 @@ public class ProgressFileReaderUtil {
     public static Progress readProgressFromFile(GistFork fork, String directory) {
         Progress progress = new Progress(fork.getOwner().getUsername());
         progress.setLastUpdate(fork.getLastUpdate());
+        progress.setUrl(fork.getUrl());
         try (Scanner scanner = new Scanner(Paths.get(String.format(READ_DIRECTORY_FORMAT, directory, FILE_NAME)).toFile())) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
