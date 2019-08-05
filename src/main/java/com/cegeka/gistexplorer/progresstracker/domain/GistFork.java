@@ -58,6 +58,13 @@ public class GistFork {
         return lastUpdate;
     }
 
+    @Override
+    public String toString() {
+        return "GistFork{" +
+                "owner=" + owner +
+                '}';
+    }
+
     public static class GistForkBuilder {
         private String url;
         private String cloneUrl;

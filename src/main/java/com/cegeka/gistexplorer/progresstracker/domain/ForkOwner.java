@@ -19,6 +19,13 @@ public class ForkOwner {
         return username;
     }
 
+    @Override
+    public String toString() {
+        return "ForkOwner{" +
+                "username='" + username + '\'' +
+                '}';
+    }
+
     public static class ForkOwnerBuilder {
         private String username;
 
