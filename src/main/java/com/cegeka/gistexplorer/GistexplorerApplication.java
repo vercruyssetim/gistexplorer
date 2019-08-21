@@ -17,7 +17,7 @@ public class GistexplorerApplication {
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(Lists.newArrayList((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "token ebbdd58bd4260cb116fb6b06e270cbe9a6a0011b");
+            request.getHeaders().add("Authorization", System.getenv("GITHUB_TOKEN"));
             return execution.execute(request, body);
         }));
         return restTemplate;
