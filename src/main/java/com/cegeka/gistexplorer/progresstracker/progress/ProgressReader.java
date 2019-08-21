@@ -2,14 +2,22 @@ package com.cegeka.gistexplorer.progresstracker.progress;
 
 import com.cegeka.gistexplorer.progresstracker.gist.Fork;
 import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
+import com.cegeka.gistexplorer.progresstracker.teams.TeamRepository;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class ProgressReader {
 
+    private TeamRepository teamRepository;
+
+    public ProgressReader(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
+
     public Progress readProgressFromFile(ForkDetail forkDetail) {
         Progress progress = new Progress(forkDetail.getOwner().getUsername());
+        progress.setUserInFodFin(teamRepository.isUserInFodFin(forkDetail.getOwner().getUsername()));
         progress.setLastUpdate(forkDetail.getLastUpdate());
         progress.setUrl(forkDetail.getHtmlUrl());
 
@@ -30,6 +38,7 @@ public class ProgressReader {
 
     public Progress readProgressFromFile(Fork fork, String content) {
         Progress progress = new Progress(fork.getOwner().getUsername());
+        progress.setUserInFodFin(teamRepository.isUserInFodFin(fork.getOwner().getUsername()));
         progress.setLastUpdate(fork.getLastUpdate());
         progress.setUrl(fork.getHtmlUrl());
 

@@ -13,6 +13,7 @@ public class Progress {
     private int totalItems = 0;
     private LocalDate lastUpdate;
     private String url;
+    private boolean userInFodFin;
 
     public Progress(String username) {
         this.username = username;
@@ -22,24 +23,12 @@ public class Progress {
         return username;
     }
 
-    public List<String> getCompletedItems() {
-        return completedItems;
-    }
-
     public void addToCompletedItems(String item) {
         completedItems.add(item);
     }
 
-    public List<String> getUncompletedItems() {
-        return uncompletedItems;
-    }
-
     public void addToUncompletedItems(String item) {
         uncompletedItems.add(item);
-    }
-
-    public List<String> getUncertainItems() {
-        return uncertainItems;
     }
 
     public void addToUncertainItems(String item) {
@@ -62,10 +51,6 @@ public class Progress {
         return (int) (((double) getNumberOfCompletedItems() / (double) getTotalItems()) * 100);
     }
 
-    public String getStyle() {
-        return "width:" + getPercentage() + "%";
-    }
-
     public void setLastUpdate(LocalDate lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
@@ -80,5 +65,13 @@ public class Progress {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setUserInFodFin(boolean userInFodFin) {
+        this.userInFodFin = userInFodFin;
+    }
+
+    public boolean isUserInFodFin() {
+        return userInFodFin;
     }
 }

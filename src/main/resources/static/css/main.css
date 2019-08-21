@@ -65,6 +65,14 @@ a:hover {
     border-bottom-color: rgb(170, 170, 170);
 }
 
+.fork.fork-fodfin{
+    background: #b2abe8;
+}
+
+.fork.fork-cm{
+    background: #d2f1c2;
+}
+
 .username {
     font-weight: 400;
 }
@@ -75,7 +83,7 @@ p {
 
 .progress {
     height: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
     overflow: hidden;
     background-color: #f5f5f5;
     border-radius: 4px;
