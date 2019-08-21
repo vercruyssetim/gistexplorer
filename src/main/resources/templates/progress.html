@@ -5,7 +5,7 @@
       layout:decorate="~{layouts/layout}">
 <body>
 <div layout:fragment="content">
-    <h1 class="title">Progress of students</h1>
+    <h1 class="title">Progression of <span th:text="${title}"></span></h1>
 
     <div th:each="progress: ${progressList}" class="fork">
         <h3 class="username">Username: <a th:href="${progress.url}"><span th:text="${progress.username}"></span></a>

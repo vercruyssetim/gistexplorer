@@ -17,6 +17,14 @@ public class ProgressTrackerController {
     @GetMapping(value = "/getProgress")
     public String getProgress(Model model) {
         model.addAttribute("progressList", progressTrackerService.trackProgressOfForks());
+        model.addAttribute("title", "summer homework");
+        return "progress";
+    }
+
+    @GetMapping(value = "/selfEvaluation2")
+    public String getSelfEvaluation2(Model model) {
+        model.addAttribute("progressList", progressTrackerService.getProgressOfSelfEvaluation("20-programming-advanced-java"));
+        model.addAttribute("title", "self evaluation 2");
         return "progress";
     }
 

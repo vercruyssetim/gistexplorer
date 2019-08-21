@@ -1,7 +1,7 @@
 package com.cegeka.gistexplorer.progresstracker.progress;
 
-import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
 import com.cegeka.gistexplorer.progresstracker.gist.Fork;
+import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
 import com.cegeka.gistexplorer.progresstracker.gist.GistClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,4 +35,19 @@ public class ProgressTrackerService {
     private Progress toProgress(ForkDetail detail) {
         return progressReader.readProgressFromFile(detail);
     }
+
+    private Progress toProgress(Fork f, String p) {
+        return progressReader.readProgressFromFile(f, p);
+    }
+
+    public List<Progress> getProgressOfSelfEvaluation(String base) {
+        List<Fork> forks = gistClient.getAllForksOfTrackJava();
+        return forks.stream()
+                .map(f -> {
+                    String selfEvaluation = gistClient.getSelfEvaluation(f.getOwner().getUsername(), base);
+                    return toProgress(f, selfEvaluation);
+                })
+                .collect(Collectors.toList());
+    }
+
 }

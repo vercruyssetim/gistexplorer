@@ -15,7 +15,7 @@ public class GistClient {
 
     private RestTemplate restTemplate;
 
-    public GistClient(@Value("${gistid}")String gistId, RestTemplate restTemplate) {
+    public GistClient(@Value("${gistid}") String gistId, RestTemplate restTemplate) {
         this.gistId = gistId;
         this.restTemplate = restTemplate;
     }
@@ -34,5 +34,23 @@ public class GistClient {
                         }
                 )
                 .getBody();
+    }
+
+    public List<Fork> getAllForksOfTrackJava() {
+        return restTemplate
+                .exchange(
+                        String.format("https://api.github.com/repos/switchfully/track-java/forks"),
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<Fork>>() {
+                        }
+                )
+                .getBody();
+    }
+
+    public String getSelfEvaluation(String username, String base) {
+        return restTemplate.getForObject(
+                String.format("https://raw.githubusercontent.com/%s/track-java/master/" + base + "/00-self-evaluation/README.md", username),
+                String.class);
     }
 }

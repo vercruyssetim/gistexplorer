@@ -1,5 +1,6 @@
 package com.cegeka.gistexplorer.progresstracker.progress;
 
+import com.cegeka.gistexplorer.progresstracker.gist.Fork;
 import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,24 @@ public class ProgressReader {
                     progress.addToUncompletedItems(line);
                 } else {
                     progress.addToUncertainItems(line);
+                }
+            }
+        }
+        progress.calculateProgress();
+        return progress;
+    }
+
+    public Progress readProgressFromFile(Fork fork, String content) {
+        Progress progress = new Progress(fork.getOwner().getUsername());
+        progress.setLastUpdate(fork.getLastUpdate());
+        progress.setUrl(fork.getHtmlUrl());
+
+        for (String line : content.split("\n")) {
+            if (line.contains("[")) {
+                if (line.contains("✔") || line.contains("[:heavy_check_mark:]")) {
+                    progress.addToCompletedItems(line);
+                } else {
+                    progress.addToUncompletedItems(line);
                 }
             }
         }
