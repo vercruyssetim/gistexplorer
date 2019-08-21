@@ -21,7 +21,8 @@ public class TeamRepository {
             "ozlem0101",
             "tomasblond",
             "santiagomc19",
-            "nagarashi"
+            "nagarashi",
+            "jimocket"
     );
 
     public boolean isUserInFodFin(String username) {
