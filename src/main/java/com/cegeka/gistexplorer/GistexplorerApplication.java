@@ -19,8 +19,6 @@ public class GistexplorerApplication {
 
     @Bean
     public RestTemplate restTemplate() {
-        LOGGER.info(System.getenv("GITHUB_TOKEN"));
-        LOGGER.info(System.getProperty("GITHUB_TOKEN"));
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(Lists.newArrayList((request, body, execution) -> {
             request.getHeaders().add("Authorization", System.getenv("GITHUB_TOKEN"));
