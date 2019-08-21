@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class ProgressTrackerService {
                 .map(Fork::getUrl)
                 .map(url -> gistClient.getFork(url))
                 .map(this::toProgress)
+                .sorted(Comparator.comparing(Progress::isUserInFodFin))
                 .collect(Collectors.toList());
     }
 
@@ -47,6 +49,7 @@ public class ProgressTrackerService {
                     String selfEvaluation = gistClient.getSelfEvaluation(f.getOwner().getUsername(), base);
                     return toProgress(f, selfEvaluation);
                 })
+                .sorted(Comparator.comparing(Progress::isUserInFodFin))
                 .collect(Collectors.toList());
     }
 
