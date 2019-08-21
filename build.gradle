@@ -20,6 +20,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.4.0.201906121030-r'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
     testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.2'

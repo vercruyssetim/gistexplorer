@@ -1,6 +1,7 @@
 package com.cegeka.gistexplorer;
 
 import com.google.common.collect.Lists;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,11 @@ public class GistexplorerApplication {
             }
         });
         return restTemplate;
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
 }
