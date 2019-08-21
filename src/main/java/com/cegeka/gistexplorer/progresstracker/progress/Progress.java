@@ -1,4 +1,4 @@
-package com.cegeka.gistexplorer.progresstracker.domain;
+package com.cegeka.gistexplorer.progresstracker.progress;
 
 import java.time.LocalDate;
 import java.util.List;
