@@ -17,6 +17,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
     compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.4.0.201906121030-r'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

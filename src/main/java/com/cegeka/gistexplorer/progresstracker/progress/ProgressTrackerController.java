@@ -17,6 +17,6 @@ public class ProgressTrackerController {
     @GetMapping(value = "/getProgress")
     public String getProgress(Model model) {
         model.addAttribute("progressList", progressTrackerService.trackProgressOfForks());
-        return "progress";
+        return "progress.xhtml";
     }
 }
