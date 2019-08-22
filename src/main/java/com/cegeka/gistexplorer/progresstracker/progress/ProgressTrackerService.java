@@ -5,8 +5,10 @@ import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
 import com.cegeka.gistexplorer.progresstracker.gist.GistClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,16 +19,22 @@ import static java.util.Comparator.reverseOrder;
 public class ProgressTrackerService {
     private static Logger LOGGER = LoggerFactory.getLogger(ProgressTrackerService.class);
 
+    private String fodFinGistId;
+    private String cmGistId;
     private GistClient gistClient;
     private ProgressReader progressReader;
 
-    public ProgressTrackerService(GistClient gistClient, ProgressReader progressReader) {
+    public ProgressTrackerService(@Value("${fodfin.gistid}") String fodFinGistId, @Value("${cm.gistid}") String cmGistId, GistClient gistClient, ProgressReader progressReader) {
+        this.fodFinGistId = fodFinGistId;
+        this.cmGistId = cmGistId;
         this.gistClient = gistClient;
         this.progressReader = progressReader;
     }
 
     public List<Progress> trackProgressOfForks() {
-        List<Fork> forks = gistClient.getAllForksOfGist();
+        List<Fork> forks = new ArrayList<>();
+        forks.addAll(gistClient.getAllForksOfGist(fodFinGistId));
+        forks.addAll(gistClient.getAllForksOfGist(cmGistId));
         LOGGER.info("forks found" + forks);
         return forks.stream()
                 .map(Fork::getUrl)

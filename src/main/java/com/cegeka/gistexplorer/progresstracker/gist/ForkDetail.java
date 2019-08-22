@@ -1,5 +1,6 @@
 package com.cegeka.gistexplorer.progresstracker.gist;
 
+import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail.Files.File;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ForkDetail implements ForkInformation{
@@ -31,7 +34,9 @@ public class ForkDetail implements ForkInformation{
     }
 
     public String getContent(){
-        return files.getFiles().get("switchfully-javafin-summer-progress-tracker").getContent();
+        return ofNullable(files.getFiles().get("switchfully-javafin-summer-progress-tracker"))
+                .map(File::getContent)
+                .orElseGet(() -> files.getFiles().get("switchfully-javaacademy2019-summer-progress-tracker").getContent());
     }
 
     @Override

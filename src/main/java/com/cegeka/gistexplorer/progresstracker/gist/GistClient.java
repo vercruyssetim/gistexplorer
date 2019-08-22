@@ -1,6 +1,5 @@
 package com.cegeka.gistexplorer.progresstracker.gist;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -11,12 +10,9 @@ import java.util.List;
 @Service
 public class GistClient {
 
-    private String gistId;
-
     private RestTemplate restTemplate;
 
-    public GistClient(@Value("${gistid}") String gistId, RestTemplate restTemplate) {
-        this.gistId = gistId;
+    public GistClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -24,7 +20,7 @@ public class GistClient {
         return restTemplate.getForObject(url, ForkDetail.class);
     }
 
-    public List<Fork> getAllForksOfGist() {
+    public List<Fork> getAllForksOfGist(String gistId) {
         return restTemplate
                 .exchange(
                         String.format("https://api.github.com/gists/%s/forks", gistId),
