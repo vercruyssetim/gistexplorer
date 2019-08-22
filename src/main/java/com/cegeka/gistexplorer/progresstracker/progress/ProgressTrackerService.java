@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.reverseOrder;
+
 @Service
 public class ProgressTrackerService {
     private static Logger LOGGER = LoggerFactory.getLogger(ProgressTrackerService.class);
@@ -30,12 +32,12 @@ public class ProgressTrackerService {
                 .map(Fork::getUrl)
                 .map(url -> gistClient.getFork(url))
                 .map(this::toProgress)
-                .sorted(Comparator.comparing(Progress::isUserInFodFin))
+                .sorted(Comparator.comparing(Progress::getTeam).thenComparing(Progress::getLastUpdate, reverseOrder()).thenComparing(Progress::getRealName))
                 .collect(Collectors.toList());
     }
 
     private Progress toProgress(ForkDetail detail) {
-        return progressReader.readProgressFromFile(detail);
+        return progressReader.readProgressFromFile(detail, detail.getContent());
     }
 
     private Progress toProgress(Fork f, String p) {

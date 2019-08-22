@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Fork {
+public class Fork implements ForkInformation{
     @JsonProperty("html_url")
     private String htmlUrl;
 
@@ -25,6 +25,11 @@ public class Fork {
 
     public Owner getOwner() {
         return owner;
+    }
+
+    @Override
+    public String getUsername() {
+        return owner.getUsername();
     }
 
     public LocalDate getLastUpdate() {

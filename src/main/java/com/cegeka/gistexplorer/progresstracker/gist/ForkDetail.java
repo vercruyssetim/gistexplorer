@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ForkDetail {
+public class ForkDetail implements ForkInformation{
 
     @JsonProperty("html_url")
     private String htmlUrl;
@@ -32,6 +32,11 @@ public class ForkDetail {
 
     public String getContent(){
         return files.getFiles().get("switchfully-javafin-summer-progress-tracker").getContent();
+    }
+
+    @Override
+    public String getUsername() {
+        return owner.getUsername();
     }
 
     public LocalDate getLastUpdate() {

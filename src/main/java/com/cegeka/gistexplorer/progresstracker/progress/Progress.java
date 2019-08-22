@@ -1,5 +1,7 @@
 package com.cegeka.gistexplorer.progresstracker.progress;
 
+import com.cegeka.gistexplorer.progresstracker.teams.TeamMember;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class Progress {
     private LocalDate lastUpdate;
     private String url;
     private boolean userInFodFin;
+    private String realName;
+    private TeamMember.Team team;
 
     public Progress(String username) {
         this.username = username;
@@ -73,5 +77,21 @@ public class Progress {
 
     public boolean isUserInFodFin() {
         return userInFodFin;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setTeam(TeamMember.Team team) {
+        this.team = team;
+    }
+
+    public TeamMember.Team getTeam() {
+        return team;
     }
 }

@@ -8,8 +8,7 @@
     <h1 class="title">Progression of <span th:text="${title}"></span></h1>
 
     <div th:each="progress: ${progressList}" class="fork" th:class="${progress.isUserInFodFin()} ? 'fork fork-fodfin' : 'fork fork-cm'">
-        <h3 class="username">Username: <a th:href="${progress.url}"><span th:text="${progress.username}"></span></a>
-        </h3>
+        <h3 class="username"><a th:href="${progress.url}"><span th:text="${progress.realName}"></span></a>(<span th:text="${progress.team}"></span>)</h3>
 
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
