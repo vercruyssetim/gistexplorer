@@ -1,5 +1,6 @@
 package com.cegeka.gistexplorer.progresstracker.gist;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class GistClient {
                 .getBody();
     }
 
+    @Cacheable("selfEvaluation")
     public String getSelfEvaluation(String username, String base) {
         return restTemplate.getForObject(
                 String.format("https://raw.githubusercontent.com/%s/track-java/master/" + base + "/00-self-evaluation/README.md", username),

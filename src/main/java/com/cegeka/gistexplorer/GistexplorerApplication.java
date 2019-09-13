@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -19,6 +20,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.HttpStatus.Series.CLIENT_ERROR;
 import static org.springframework.http.HttpStatus.Series.SERVER_ERROR;
 
+@EnableCaching
 @SpringBootApplication
 public class GistexplorerApplication {
 
@@ -33,7 +35,7 @@ public class GistexplorerApplication {
         LOGGER.info(format("Authorization token: %s", System.getenv("GITHUB_TOKEN")));
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(Lists.newArrayList((request, body, execution) -> {
-            request.getHeaders().add("Authorization", String.format("token %s" , System.getenv("GITHUB_TOKEN")));
+            request.getHeaders().add("Authorization", String.format("token %s", System.getenv("GITHUB_TOKEN")));
             request.getHeaders().add("User-Agent", "vercruyssetim");
             return execution.execute(request, body);
         }));

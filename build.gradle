@@ -14,15 +14,18 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
-    compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.4.0.201906121030-r'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
-    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
-    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    implementation group: 'com.google.guava', name: 'guava', version: '28.0-jre'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.4.0.201906121030-r'
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
+
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
+    testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.2'
 
 }
