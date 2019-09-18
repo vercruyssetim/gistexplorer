@@ -1,1 +1,1 @@
-  web: java $JAVA_OPTS -jar build/libs/*.jar --p $PORT
+  web: java $JAVA_OPTS -jar build/libs/*.jar --p 8080
