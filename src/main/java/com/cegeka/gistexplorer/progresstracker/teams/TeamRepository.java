@@ -67,7 +67,9 @@ public class TeamRepository {
 
     public Team getTeam(String username) {
         Optional<Team> team = Optional.ofNullable(teamMemberMap.get(username.toLowerCase())).map(TeamMember::getTeam);
-        team.ifPresentOrElse(t -> {}, () -> LOGGER.warn(username + " not found!"));
+        if (!team.isPresent()) {
+            LOGGER.warn(username + " not found!");
+        }
         return team.orElse(CM);
     }
 }
