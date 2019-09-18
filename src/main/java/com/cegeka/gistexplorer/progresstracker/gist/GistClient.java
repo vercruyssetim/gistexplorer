@@ -33,10 +33,10 @@ public class GistClient {
                 .getBody();
     }
 
-    public List<Fork> getAllForksOfTrackJava() {
+    public List<Fork> getAllForksOfTrackJava(int page) {
         return restTemplate
                 .exchange(
-                        String.format("https://api.github.com/repos/switchfully/track-java/forks"),
+                        String.format("https://api.github.com/repos/switchfully/track-java/forks?page=%s", page),
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<List<Fork>>() {

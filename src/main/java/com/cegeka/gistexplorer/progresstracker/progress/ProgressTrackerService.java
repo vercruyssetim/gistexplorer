@@ -35,7 +35,7 @@ public class ProgressTrackerService {
         List<Fork> forks = new ArrayList<>();
         forks.addAll(gistClient.getAllForksOfGist(fodFinGistId));
         forks.addAll(gistClient.getAllForksOfGist(cmGistId));
-        LOGGER.info("forks found" + forks);
+        LOGGER.info("forks found: " + forks);
         return forks.stream()
                 .map(Fork::getUrl)
                 .map(url -> gistClient.getFork(url))
@@ -53,7 +53,10 @@ public class ProgressTrackerService {
     }
 
     public List<Progress> getProgressOfSelfEvaluation(String base) {
-        List<Fork> forks = gistClient.getAllForksOfTrackJava();
+        List<Fork> forks = new ArrayList<>();
+        forks.addAll(gistClient.getAllForksOfTrackJava(1));
+        forks.addAll(gistClient.getAllForksOfTrackJava(2));
+        LOGGER.info("forks found: " + forks);
         return forks.stream()
                 .map(f -> {
                     String selfEvaluation = gistClient.getSelfEvaluation(f.getOwner().getUsername(), base);
