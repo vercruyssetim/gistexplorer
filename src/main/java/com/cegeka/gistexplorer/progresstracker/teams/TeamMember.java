@@ -1,6 +1,6 @@
 package com.cegeka.gistexplorer.progresstracker.teams;
 
-import static com.cegeka.gistexplorer.progresstracker.teams.TeamMember.Team.FOD_FIN;
+import static com.cegeka.gistexplorer.progresstracker.teams.TeamMember.Team.STUDENT;
 
 public class TeamMember {
     private final String naam;
@@ -16,12 +16,11 @@ public class TeamMember {
     }
 
     public boolean isInFodFin() {
-        return team == FOD_FIN;
+        return team == STUDENT;
     }
 
     public enum Team {
-        FOD_FIN,
-        CM,
+        STUDENT,
         TEACHER
     }
 

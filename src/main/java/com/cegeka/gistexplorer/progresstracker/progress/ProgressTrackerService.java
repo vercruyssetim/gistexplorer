@@ -20,13 +20,11 @@ public class ProgressTrackerService {
     private static Logger LOGGER = LoggerFactory.getLogger(ProgressTrackerService.class);
 
     private String fodFinGistId;
-    private String cmGistId;
     private GistClient gistClient;
     private ProgressReader progressReader;
 
-    public ProgressTrackerService(@Value("${fodfin.gistid}") String fodFinGistId, @Value("${cm.gistid}") String cmGistId, GistClient gistClient, ProgressReader progressReader) {
+    public ProgressTrackerService(@Value("${fodfin.gistid}") String fodFinGistId, GistClient gistClient, ProgressReader progressReader) {
         this.fodFinGistId = fodFinGistId;
-        this.cmGistId = cmGistId;
         this.gistClient = gistClient;
         this.progressReader = progressReader;
     }
@@ -34,7 +32,6 @@ public class ProgressTrackerService {
     public List<Progress> trackProgressOfForks() {
         List<Fork> forks = new ArrayList<>();
         forks.addAll(gistClient.getAllForksOfGist(fodFinGistId));
-        forks.addAll(gistClient.getAllForksOfGist(cmGistId));
         LOGGER.info("forks found: " + forks);
         return forks.stream()
                 .map(Fork::getUrl)

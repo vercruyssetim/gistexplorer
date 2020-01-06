@@ -34,7 +34,7 @@ public class ForkDetail implements ForkInformation{
     }
 
     public String getContent(){
-        return ofNullable(files.getFiles().get("switchfully-javafin-summer-progress-tracker"))
+        return ofNullable(files.getFiles().get("feb2020progress.txt"))
                 .map(File::getContent)
                 .orElseGet(() -> files.getFiles().get("switchfully-javaacademy2019-summer-progress-tracker").getContent());
     }
