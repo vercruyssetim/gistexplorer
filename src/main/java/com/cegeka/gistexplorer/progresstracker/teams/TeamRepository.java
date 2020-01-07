@@ -30,7 +30,7 @@ public class TeamRepository {
             .put("1", teamMember("Maarten Eeckman", STUDENT))
             .put("2", teamMember("Adrien Helin", STUDENT))
             .put("Patriziabattisti", teamMember("Battisti Patrizia", STUDENT))
-            .put("3", teamMember("Matias Van Langenhove", STUDENT))
+            .put("MatiasVL", teamMember("Matias Van Langenhove", STUDENT))
             .put("4", teamMember("Harold Brinkhof", STUDENT))
             .put("BramVanMechelen", teamMember("Bram Van Mechelen", STUDENT))
             .put("5", teamMember("Cecilia Szenes", STUDENT))
