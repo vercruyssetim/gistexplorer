@@ -27,7 +27,7 @@ public class TeamRepository {
             .put("svendp1988", teamMember("Sven De Potter", STUDENT))
             .put("Tombellens", teamMember("Tom Bellens", STUDENT))
             .put("Cemal-y", teamMember("Cemal Yildiz", STUDENT))
-            .put("1", teamMember("Maarten Eeckman", STUDENT))
+            .put("maarteneeckman", teamMember("Maarten Eeckman", STUDENT))
             .put("2", teamMember("Adrien Helin", STUDENT))
             .put("Patriziabattisti", teamMember("Battisti Patrizia", STUDENT))
             .put("MatiasVL", teamMember("Matias Van Langenhove", STUDENT))
