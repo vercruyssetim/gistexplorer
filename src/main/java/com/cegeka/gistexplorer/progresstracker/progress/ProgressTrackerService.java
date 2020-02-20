@@ -41,7 +41,7 @@ public class ProgressTrackerService {
         LOGGER.info("forks found: " + forks);
         return forks.stream()
                 .map(Fork::getUrl)
-                .map(url -> gistClient.getFork(url))
+                .map(url -> gistClient.getGistFork(url))
                 .map(this::toProgress)
                 .sorted(Comparator.comparing(Progress::getTeam).thenComparing(Progress::getLastUpdate, reverseOrder()).thenComparing(Progress::getRealName))
                 .collect(Collectors.toList());
@@ -59,7 +59,7 @@ public class ProgressTrackerService {
         List<ForkDetail> forks = teamRepository.getAllMembersFromTeam(STUDENT)
                 .stream()
                 .map(TeamMember::getGithubName)
-                .map(gn -> gistClient.getFork(gn))
+                .map(gn -> gistClient.getForTrackJava(gn))
                 .collect(Collectors.toList());
 
         LOGGER.info("forks found: " + forks);

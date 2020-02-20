@@ -17,12 +17,12 @@ public class GistClient {
         this.restTemplate = restTemplate;
     }
 
-    public ForkDetail getFork(String url) {
+    public ForkDetail getGistFork(String url) {
         return restTemplate.getForObject(url, ForkDetail.class);
     }
 
-    public ForkDetail getForkForUser(String userName) {
-        return getFork(String.format("https://api.github.com/repos/%s/track-java", userName));
+    public ForkDetail getForTrackJava(String userName) {
+        return getGistFork(String.format("https://api.github.com/repos/%s/track-java", userName));
     }
 
     public List<Fork> getAllForksOfGist(String gistId) {
