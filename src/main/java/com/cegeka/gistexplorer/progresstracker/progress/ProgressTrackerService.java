@@ -1,9 +1,7 @@
 package com.cegeka.gistexplorer.progresstracker.progress;
 
-import com.cegeka.gistexplorer.progresstracker.gist.Fork;
-import com.cegeka.gistexplorer.progresstracker.gist.ForkDetail;
-import com.cegeka.gistexplorer.progresstracker.gist.ForkInformation;
-import com.cegeka.gistexplorer.progresstracker.gist.GistClient;
+import com.cegeka.gistexplorer.progresstracker.github.Fork;
+import com.cegeka.gistexplorer.progresstracker.github.GithubClient;
 import com.cegeka.gistexplorer.progresstracker.teams.TeamMember;
 import com.cegeka.gistexplorer.progresstracker.teams.TeamRepository;
 import org.slf4j.Logger;
@@ -11,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,53 +21,45 @@ public class ProgressTrackerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProgressTrackerService.class);
 
     private String fodFinGistId;
-    private GistClient gistClient;
+    private GithubClient githubClient;
     private ProgressReader progressReader;
     private TeamRepository teamRepository;
 
-    public ProgressTrackerService(@Value("${fodfin.gistid}") String fodFinGistId, GistClient gistClient, ProgressReader progressReader, TeamRepository teamRepository) {
+    public ProgressTrackerService(@Value("${fodfin.gistid}") String fodFinGistId, GithubClient githubClient, ProgressReader progressReader, TeamRepository teamRepository) {
         this.fodFinGistId = fodFinGistId;
-        this.gistClient = gistClient;
+        this.githubClient = githubClient;
         this.progressReader = progressReader;
         this.teamRepository = teamRepository;
     }
 
-    public List<Progress> trackProgressOfForks() {
-        List<Fork> forks = new ArrayList<>();
-        forks.addAll(gistClient.getAllForksOfGist(fodFinGistId));
-        LOGGER.info("forks found: " + forks);
-        return forks.stream()
-                .map(Fork::getUrl)
-                .map(url -> gistClient.getGistFork(url))
+    public List<Progress> getProgressOfGists() {
+        return teamRepository.getAllMembersFromTeam(STUDENT)
+                .stream()
+                .map(TeamMember::getGithubName)
+                .map(gn -> githubClient.getAllGistsFor(gn))
+                .filter(gists -> !gists.isEmpty())
+                .map(gists -> gists.get(0))
                 .map(this::toProgress)
                 .sorted(Comparator.comparing(Progress::getTeam).thenComparing(Progress::getLastUpdate, reverseOrder()).thenComparing(Progress::getRealName))
                 .collect(Collectors.toList());
     }
 
-    private Progress toProgress(ForkDetail detail) {
-        return progressReader.readProgressFromFile(detail, detail.getContent());
+    private Progress toProgress(Fork fork) {
+        return progressReader.readProgressFromFile(fork, githubClient.getGistContent(fork));
     }
 
-    private Progress toProgress(ForkInformation f, String p) {
-        return progressReader.readProgressFromFile(f, p);
-    }
-
-    public List<Progress> getProgressOfSelfEvaluation(String base) {
-        List<ForkDetail> forks = teamRepository.getAllMembersFromTeam(STUDENT)
+    public List<Progress> getProgressOfSelfEvaluation(String number) {
+        return teamRepository.getAllMembersFromTeam(STUDENT)
                 .stream()
                 .map(TeamMember::getGithubName)
-                .map(gn -> gistClient.getForTrackJava(gn))
-                .collect(Collectors.toList());
-
-        LOGGER.info("forks found: " + forks);
-        return forks.stream()
-                .map(f -> getProgress(base, f))
+                .map(gn -> githubClient.getForkForTrackJava(gn))
+                .map(f -> toProgress(f, number))
+                .sorted(Comparator.comparing(Progress::getTeam).thenComparing(Progress::getLastUpdate, reverseOrder()).thenComparing(Progress::getRealName))
                 .collect(Collectors.toList());
     }
 
-    private Progress getProgress(String base, ForkDetail f) {
-        String selfEvaluation = gistClient.getSelfEvaluation(f.getOwner().getUsername(), base);
-        return toProgress(f, selfEvaluation);
+    private Progress toProgress(Fork fork, String number) {
+        return progressReader.readProgressFromFile(fork, githubClient.getSelfEvaluationContent(fork.getOwner().getUsername(), number));
     }
 
 }
