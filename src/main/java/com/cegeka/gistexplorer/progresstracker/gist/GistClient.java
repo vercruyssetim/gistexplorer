@@ -21,6 +21,10 @@ public class GistClient {
         return restTemplate.getForObject(url, ForkDetail.class);
     }
 
+    public ForkDetail getForkForUser(String userName) {
+        return getFork(String.format("https://api.github.com/repos/%s/track-java", userName));
+    }
+
     public List<Fork> getAllForksOfGist(String gistId) {
         return restTemplate
                 .exchange(
